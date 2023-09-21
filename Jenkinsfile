@@ -54,6 +54,16 @@ pipeline {
           echo '<--------------- Quality Gate stopped  --------------->'
         }
       }
+
+      stage('Build Docker Image') {
+            steps {
+                script {
+                    // Build the Docker image
+                    sh 'docker build -t myrepo .'
+                }
+            }
+    }
+
     } 
     }
 }
