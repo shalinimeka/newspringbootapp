@@ -54,6 +54,7 @@ pipeline {
           echo '<--------------- Quality Gate stopped  --------------->'
         }
       }
+         }
 
       stage('Build Docker Image') {
             steps {
@@ -66,4 +67,3 @@ pipeline {
 
     } 
     }
-}
