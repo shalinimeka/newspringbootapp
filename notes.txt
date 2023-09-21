@@ -1,0 +1,61 @@
+1. Install Maven
+	sudo hostname Jenkins
+	sudo apt update
+	sudo apt install maven -y
+	mvn --version
+	sudo apt install openjdk-11-jdk -y
+****************************************************************************************
+2. Install Jenkins
+curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee \
+  /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+
+echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
+  https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+  /etc/apt/sources.list.d/jenkins.list > /dev/null
+
+sudo apt-get update
+
+sudo apt-get install jenkins -y
+sudo systemctl enable jenkins
+
+sudo systemctl status jenkins
+****************************************************************************************
+3. Install awscli
+sudo apt install awscli
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+sudo apt install unzip -y
+unzip awscliv2.zip
+sudo ./aws/install --update
+aws --version
+***************************************************************************************
+4. EKSCTL
+curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+sudo mv /tmp/eksctl /usr/local/bin
+eksctl version
+************************************************************************************
+5. kubectl
+sudo curl --silent --location -o /usr/local/bin/kubectl   https://s3.us-west-2.amazonaws.com/amazon-eks/1.22.6/2022-03-09/bin/linux/amd64/kubectl
+sudo chmod +x /usr/local/bin/kubectl
+kubectl version --short --client
+
+6. Docker.
+sudo apt-get update
+sudo apt install docker.io -y
+sudo usermod -a -G docker jenkins
+sudo service jenkins restart
+sudo systemctl daemon-reload
+sudo service docker stop
+sudo systemctl start docker
+sudo systemctl enable docker
+sudo systemctl status docker
+
+issues
+------
+1.Webhook creation in Sonarcloud
+	In project
+http://3.94.84.162:8080/sonarqube-webhook/
+
+2. In Administration Newcode
+
+Create EKS Cluster
+eksctl create cluster --name demo-eks --region us-east-1 --nodegroup-name my-nodes --node-type t3.small --managed --nodes 2
