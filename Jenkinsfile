@@ -27,7 +27,7 @@ pipeline {
     }
       stage('Sonar Analysis') {
          environment {
-            scannerHome = tool 'sonar-scanner'
+            scannerHome = tool 'SONAR_TOKEN'
       }
       steps {
         echo '<--------------- Sonar Analysis started  --------------->'
@@ -36,7 +36,7 @@ pipeline {
 
         // }
         withSonarQubeEnv('sonar-cloud') {
-          sh 'mvn clean package sonar:sonar -Dsonar.projectKey=shalinimeka_cicd-pipeline -Dsonar.organization=shalinimeka -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=e36fc75e990d44af5d5cbb7db0202b309e661ba4'
+          sh 'mvn clean package sonar:sonar -Dsonar.projectKey=shalinimeka_cicd-pipeline -Dsonar.organization=shalinimeka -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=c53f0ab4c31867651632c617600aaf663fa28424'
           echo '<--------------- Sonar Analysis stopped  --------------->'
         }
       }
