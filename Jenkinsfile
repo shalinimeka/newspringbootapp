@@ -31,9 +31,10 @@ pipeline {
       }
       steps {
         echo '<--------------- Sonar Analysis started  --------------->'
-           //     withSonarQubeEnv('sonar-cloud') {
-          //     sh "${scannerHome}/bin/sonar-scanner"
-         // }
+        //         withSonarQubeEnv('sonar-cloud') {
+        //         sh "${scannerHome}/bin/sonar-scanner"
+         
+       // }
         withSonarQubeEnv('sonar-cloud') {
           sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=shalinimeka_newspringbootapp -Dsonar.sources=. -Dsonar.organization=shalinimeka -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=e36fc75e990d44af5d5cbb7db0202b309e661ba4'
           echo '<--------------- Sonar Analysis stopped  --------------->'
