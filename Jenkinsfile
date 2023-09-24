@@ -26,9 +26,6 @@ pipeline {
       }
     }
       stage('Sonar Analysis') {
-      environment {
-         scannerHome = tool 'sonar-scanner'
-      }
       steps {
         echo '<--------------- Sonar Analysis started  --------------->'
         //         withSonarQubeEnv('sonar-cloud') {
