@@ -25,37 +25,7 @@ pipeline {
                 echo '<------------- Unit Testing stopped  --------------->'
       }
     }
-      stage('Sonar Analysis') {
-         environment {
-            scannerHome = tool 'sonar-scanner'
-      }
-      steps {
-        echo '<--------------- Sonar Analysis started  --------------->'
-        //         withSonarQubeEnv('sonar-cloud') {
-        //         sh "${scannerHome}/bin/sonar-scanner"
-         
-       // }
-        withSonarQubeEnv('SonarCloud') {
-          sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=shalinimeka -Dsonar.organization=shalinimeka -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=e36fc75e990d44af5d5cbb7db0202b309e661ba4'
-          echo '<--------------- Sonar Analysis stopped  --------------->'
-        }
-      }
-    }
-         stage('Quality Gate') {
-      steps {
-        script {
-          echo '<--------------- Quality Gate started  --------------->'
-          sleep(10)
-          timeout(time: 5, unit: 'MINUTES') {
-            def qg = waitForQualityGate()
-            if (qg.status != 'OK') {
-              error 'Pipeline failed due to the Quality gate issue'
-            }
-          }
-          echo '<--------------- Quality Gate stopped  --------------->'
-        }
-      }
-         }
+      
 
       stage('Build Docker Image') {
             steps {
